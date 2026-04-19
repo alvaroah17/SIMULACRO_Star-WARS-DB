@@ -79,8 +79,8 @@ public class PilotoDAO {
     }
 
     public void crearPilotoBD(String nombre, Especie especie, Faccion faccion, Planeta planeta) throws BDException {
-        String sql="INSERT INTO pilotos (nombre, nivel, creditos, vida_actual, id_especie, id_faccion, id_planeta_actual)" +
-                    "VALUES (?, 1, 100, 100, ?, ?, ?) RETURNINIG id";
+        String sql="INSERT INTO pilotos (nombre, nivel, creditos, vida_actual, id_especie, id_faccion, id_planeta_actual) " +
+                    "VALUES (?, 1, 100, 100, ?, ?, ?) RETURNING id";
         try(Connection connection = DriverManager.getConnection(URL, USER, PASSWD);
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, nombre);
@@ -96,7 +96,7 @@ public class PilotoDAO {
                 pilotos.add(piloto);
             }
         }catch (SQLException e){
-            throw new BDException("ERROR: Al crear el personaje");
+            throw new BDException("ERROR: Al crear el piloto --> "+e.getMessage());
         }
     }
 }
